@@ -88,6 +88,50 @@ $(document).ready(function () {
 
     buildRPS();
 
+    function updatePlayer1Name() {
+        $("#player1Name").empty();
+        var p = $("<p>");
+        p.addClass("row justify-content-center playerName");
+        p.text(player1.name);
+        $("#player1Name").append(p);
+
+        updateWinsLosses();
+    }
+
+    function updatePlayer2Name() {
+        $("#player2Name").empty();
+        var p = $("<p>");
+        p.addClass("row justify-content-center playerName");
+        p.text(player2.name);
+        $("#player2Name").append(p);
+
+        updateWinsLosses();
+    }
+
+    function waitingForPlayer1() {
+        var p = $("<p>");
+        p.addClass("row justify-content-center waitingMessage");
+        p.text("Waiting for Player 1");
+        $("#gameBoxLeft").append(p);
+
+        var p2 = $("<p>");
+        p2.addClass("instructions");
+        p2.text("Enter Player 1!")
+        $("#gameBoxCenter").append(p2);
+    }
+
+    function waitingForPlayer2() {
+        var p = $("<p>");
+        p.addClass("row justify-content-center waitingMessage");
+        p.text("Waiting for Player 2");
+        $("#gameBoxRight").append(p);
+
+        var p2 = $("<p>");
+        p2.addClass("instructions");
+        p2.text("Enter Player 2!")
+        $("#gameBoxCenter").append(p2);
+    }
+
     function playerWaiting() {
         console.log("player waiting function");
         for (j = 0; j < gameBoxArray.length; j++) {
@@ -103,6 +147,10 @@ $(document).ready(function () {
     // playerWaiting();
 
     function updateWinsLosses() {
+
+        console.log("In Update Wins Losses");
+        console.log("Player 1 wins" + player1.wins);
+
         for (j = 0; j < winsLossesDiv.length; j++) {
             $(winsLossesDiv[j]).empty();
             var p = $("<p>");
@@ -121,16 +169,17 @@ $(document).ready(function () {
     function gameBoxCenterInstructions() {
         $("#gameBoxCenter").empty();
         var p = $("<p>");
-        if (gamePlay.turn!==3) {
-            p.text("Player "+gamePlay.turn+"'s Turn");
+        p.addClass("instructions");
+        if (gamePlay.turn==1) {
+            console.log(player1.name);
+            p.text(player1.name+", your move!");
+        }
+        else if (gamePlay.turn==2) {
+            p.text(player2.name+", your move!");
         }
         else if (gamePlay.winner == "Draw") {
             p.text("It's a Draw!");
             setTimeout(gamePlayReset,3000);
-            // setTimeout(function() {
-            //     database.ref().child("/gamePlay").set(gamePlay);
-            //   }, 4000);
-            
         }
         else {
             p.text("The Winner is " + gamePlay.winner+ "!");
@@ -139,6 +188,26 @@ $(document).ready(function () {
             //     database.ref().child("/gamePlay").set(gamePlay);
             // }, 4000);
         }
+
+
+        // if (gamePlay.turn!==3) {
+        //     p.text("Player "+gamePlay.turn+"'s Turn");
+        // }
+        // else if (gamePlay.winner == "Draw") {
+        //     p.text("It's a Draw!");
+        //     setTimeout(gamePlayReset,3000);
+        //     // setTimeout(function() {
+        //     //     database.ref().child("/gamePlay").set(gamePlay);
+        //     //   }, 4000);
+            
+        // }
+        // else {
+        //     p.text("The Winner is " + gamePlay.winner+ "!");
+        //     setTimeout(gamePlayReset,3000);
+        //     // setTimeout(function() {
+        //     //     database.ref().child("/gamePlay").set(gamePlay);
+        //     // }, 4000);
+        // }
         
         // if (gamePlay.turn==1) {
         //     p.text("Player 1's Turn");
@@ -160,30 +229,56 @@ $(document).ready(function () {
             $("#headerText").text("Enter Player 1!");
             player1Reset();
             player2Reset();
+            waitingForPlayer1();
+            waitingForPlayer2();
         }
         else if (snapshot.child("/player1").exists() && !snapshot.child("/player2").exists()) {
             console.log("Player 1 exists");
             $("#headerText").text("Enter Player 2!");
+            player1 = snapshot.val().player1;
+            // console.log("Player 1 in on value is " + player1);
+            // highBidder = snapshot.val().highBidder;
             player2Reset();
+            waitingForPlayer2();
+            updatePlayer1Name();
+        }
+        else if (snapshot.child("/player2").exists() && !snapshot.child("/player1").exists()) {
+            console.log("Player 2 exists");
+            $("#headerText").text("Enter Player 1!");
+            player2 = snapshot.val().player2;
+            player1Reset();
+            waitingForPlayer1();
+            updatePlayer2Name();
         }
         else if (snapshot.child("/player1").exists() && snapshot.child("/player2").exists()) {
-            console.log("Player 2 exists");
+            console.log("Both players exist");
             $("#headerText").text("Game On!");
 
-            if (snapshot.child("/gamePlay/turn").val()==1) {
-                console.log("player 1's turn");
-                // Update Div to Display Player 1's Turn Text
-                gameBoxCenterInstructions();
-            }
-            else if (snapshot.child("/gamePlay/turn").val()==2) {
-                console.log("player 2's turn");
-                // Update Div to Display Player 2's Turn Text
-                gameBoxCenterInstructions();
-            }
-            else {
-                gameBoxCenterInstructions();
-                updateWinsLosses();
-            }
+            player1 = snapshot.val().player1;
+            player2 = snapshot.val().player2
+            // console.log(player1);
+
+            // playerWaiting();
+
+            updatePlayer1Name();
+            updatePlayer2Name();
+            gameBoxCenterInstructions();
+            // updateWinsLosses();
+
+            // if (snapshot.child("/gamePlay/turn").val()==1) {
+            //     console.log("player 1's turn");
+            //     // Update Div to Display Player 1's Turn Text
+            //     gameBoxCenterInstructions();
+            // }
+            // else if (snapshot.child("/gamePlay/turn").val()==2) {
+            //     console.log("player 2's turn");
+            //     // Update Div to Display Player 2's Turn Text
+            //     gameBoxCenterInstructions();
+            // }
+            // else {
+            //     gameBoxCenterInstructions();
+            //     updateWinsLosses();
+            // }
             
         }
         else {
@@ -216,6 +311,7 @@ $(document).ready(function () {
 
         if (player1.name=="") {
             player1.name = playerName;
+            
             // database.ref().set({
             //     player1: player1,
             // });
@@ -244,6 +340,9 @@ $(document).ready(function () {
             // database.ref().set({
             //     player2: player2,
             // });
+        }
+        else {
+            gamePlayReset();
         }
 
 
@@ -298,6 +397,7 @@ $(document).ready(function () {
             if ((gamePlay.player1Guess=="Rock" && gamePlay.player2Guess=="Scissors") || (gamePlay.player1Guess=="Scissors" && gamePlay.player2Guess=="Paper") || (gamePlay.player1Guess=="Paper" && gamePlay.player2Guess=="Rock")) {
                 player1.wins = player1.wins + 1;
                 player2.losses = player2.losses + 1;
+                console.log(player1.wins);
                 gamePlay.winner = player1.name;
             }
             else if ((gamePlay.player1Guess=="Rock" && gamePlay.player2Guess=="Paper") || (gamePlay.player1Guess=="Scissors" && gamePlay.player2Guess=="Rock") || (gamePlay.player1Guess=="Paper" && gamePlay.player2Guess=="Scissors")) {
@@ -309,9 +409,20 @@ $(document).ready(function () {
                 gamePlay.winner = "Draw";
             }
 
-            database.ref().child("/gamePlay").set(gamePlay);
-            database.ref().child("/player1").set(player1);
-            database.ref().child("/player2").set(player2);
+            // Can we only update one at a time? Ah, on the listening event we update the players to match the database, so we listen and the update to gameplay updates the database, which then updates player1 and player2 to match the database before it has taken those updates into the database.
+            // database.ref().child("/gamePlay").set(gamePlay);
+            // console.log("Final update for Player 1");
+            // console.log(player1);
+            // database.ref().child("/player1").set(player1);
+            // database.ref().child("/player2").set(player2);
+
+            database.ref().update({
+                "/gamePlay": gamePlay,
+                "/player1": player1,
+                "/player2": player2,
+              });
+
+
         }
 
         // var tempArray = [];
