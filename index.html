@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>RPS Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap File -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/javascript/triviaJS.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+</head>
+
+<body>
+    <!-- Overall Bootstrap Grid -->
+    <div class="container">
+
+        <!-- Jumbotron with Title -->
+        <div class="jumbotron jumbotronHeaderImg" id="titleBlock">
+
+            <!-- <img src="assets/images/darth-vader-fight.jpg" alt="HANGMAN ANIMATION" class="img hangman-image"> -->
+            <h1 class="text-center" id="titleText">
+                <strong>Rock Paper Scissors</strong>
+                <br>
+                <br>
+            </h1>
+            <!-- <hr> -->
+            <!-- <div id="musicControls" class="text-center">
+                <button class="btn btn-warning btn-xs theme-button">
+                    <span class="glyphicon glyphicon-music"></span>Music!</button>
+                <button class="btn btn-dark btn-xs pause-button">
+                    <span class="glyphicon glyphicon-pause"></span>Stop Music</button>
+            </div> -->
+
+        </div>
+
+        <div class="row justify-content-center" id="winsDiv">
+        </div>
+        
+        <div class="row justify-content-center" id="lossesDiv">
+        </div>
+
+        <div class="row justify-content-center">
+            <form>
+                <div id="formHeader">
+                    <h3 id="headerText">Add Name</h3>
+                </div>
+                <!-- <input type="text">
+                <input type="submit" value="save" id="submit-item"> -->
+                <label for="player-name">Your Name</label>
+                <input class="form-control" id="player-name" type="text">
+                <button class="btn btn-primary" id="submit-item" type="submit">Submit</button>
+                <!-- <button class="btn btn-primary" id="submit-item" type="submit">Submit</button> -->
+            </form>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-4 gameBox" id="gameBoxLeft">
+
+            </div>
+            <div class="col-lg-2 gameBox" id="gameBoxCenter">
+
+            </div>
+            <div class="col-lg-4 gameBox" id="gameBoxRight">
+
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6 chatBox">
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        <div class="row">
+            <p class="subHeadings" id="timer">
+                Timer
+                <!-- Which of these levels does NOT appear in the console/PC versions of the game &quot;Sonic Generations&quot;? -->
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="subHeadings col-lg-8" id="triviaQuestion">
+                    <!-- subHeadings -->
+            </div>
+        </div>
+
+        <div class="row justify-content-center" id="triviaAnswers">
+            <div class="col-lg-4" id="firstAnswerColumn">
+                <!-- Content below is what will be dynamically created by our javascript during the game. -->
+                <!-- <div class="row justify-content-center answerButton">
+                        <div class="triangleLeft"></div>
+                        <button class="triviaAnswer" data-answer="1"><span style="color:black">A. </span>Answer 1</button>
+                        <div class="triangleRight"></div>
+                </div>
+                <div class="row justify-content-center answerButton">
+                        <div class="triangleLeft"></div>
+                        <button class="triviaAnswer" data-answer="1">Answer 3</button>
+                        <div class="triangleRight"></div>
+                </div> -->
+            </div>
+            <div class="col-lg-4" id="secondAnswerColumn">
+                    <!-- <div class="row justify-content-center answerButton">
+                            <div class="triangleLeft"></div>
+                            <button class="triviaAnswer" data-answer="1">Answer 2</button>
+                            <div class="triangleRight"></div>
+                    </div>
+                    <div class="row justify-content-center answerButton">
+                            <div class="triangleLeft"></div>
+                            <button class="triviaAnswer" data-answer="1">Answer 4</button>
+                            <div class="triangleRight"></div>
+                    </div> -->
+            </div>
+        </div>
+        
+
+
+
+
+
+    </div>
+</body>
+
+</html>

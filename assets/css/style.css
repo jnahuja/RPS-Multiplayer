@@ -1,0 +1,262 @@
+body {
+    /* background: url("../images/star-wars-stock.jpg"); */
+}
+
+#headerText {
+    text-align: center;
+}
+
+.gameBox {
+    border: 1px solid black;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+}
+
+.chatBox {
+    border: 1px solid black;
+    /* width: 200px; */
+    height: 200px;
+    margin: 10px;
+}
+
+.rpsButton {
+    background: #232265;
+    border: 2px solid lightblue;
+    color: white;
+    border-radius: 10px;
+    margin: 10px;
+    width: 260px;
+    height: 30px;
+    font-weight: 1000;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#titleBlock {
+    background: #232265;
+    border-radius: 25px;
+    /* background: url("../images/millionaire.png"); */
+}
+
+#titleText {
+    /* background: #232265; */
+    color: white;
+    font-weight: 1000;
+    font-size: 60px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#winsDiv {
+    background: #232265;
+    color: white;
+    text-align: center;
+    font-weight: 800;
+    font-size: 20px;
+    width: 200px;
+    margin: auto;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#lossesDiv {
+    background: #232265;
+    color: white;
+    text-align: center;
+    font-weight: 800;
+    font-size: 20px;
+    width: 200px;
+    margin: auto;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#timer {
+    /* background: #232265;
+    color: white; */
+    text-align: center;
+    /* font-weight: 800;
+    font-size: 20px; */
+    width: 60px;
+    margin: auto;
+    /* border-radius: 50%; */
+}
+
+.beginButton {
+    background: #232265;
+    border-top: 2px solid lightblue;
+    border-bottom: 2px solid lightblue;
+    border-left: 0px;
+    border-right: 0px;
+    color: white;
+    width: 260px;
+    font-weight: 1000;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.triviaQuestionButton {
+    background: #232265;
+    border-top: 2px solid lightblue;
+    border-bottom: 2px solid lightblue;
+    border-left: 0px;
+    border-right: 0px;
+    color: white;
+    width: 600px;
+    /* font: bold; */
+    font-weight: 1000;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+.triviaAnswer {
+    background: #232265;
+    border-top: 2px solid lightblue;
+    border-bottom: 2px solid lightblue;
+    border-left: 0px;
+    border-right: 0px;
+    color: white;
+    width: 260px;
+    text-align: left;
+    /* font: bold; */
+    font-weight: 1000;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    /* font-family:  */
+    /* position: relative; */
+}
+
+/* this border color controlls the color of the triangle (what looks like the fill of the triangle) */
+.triviaAnswer:after {
+    top: 3px;
+    border-color: transparent transparent transparent #232265;
+    border-width: 23px;
+}
+
+/* this border color controlls the outside, thin border */
+.triviaAnswer:before {
+    top: 0px;
+    border-color: transparent transparent transparent lightblue;
+    /* border-width: 11px; */
+    border-width: 26px
+}
+
+/* this CS forms the triangles */
+/* .triviaAnswer:after,
+.triviaAnswer:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 100%;
+    left: 63%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+} */
+
+.triangleLeft {
+	width: 0;
+	height: 0;
+	border-top: 25px solid transparent;
+	border-right: 30px solid #232265;
+	border-bottom: 25px solid transparent;
+}
+
+.triangleRight {
+	width: 0;
+	height: 0;
+	border-top: 25px solid transparent;
+	border-left: 30px solid #232265;
+    border-bottom: 25px solid transparent;
+}
+
+.answerIndex {
+    color: orange;
+    font: bold;
+
+}
+
+.answerButton {
+    /* display: inline-flex; */
+}
+
+.answerBlock {
+    margin-bottom: 10px;
+}
+
+
+
+
+
+/* this is the box */
+/* .test {
+    margin: 15px 30px;
+    width: 200px;
+    background: #fff;
+    border: 1px solid #a00;
+    position: relative;
+    min-height: 200px;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    font: bold 1.5em/180px Helvetica, sans-serif;
+    text-shadow: 0 0 1px #000;
+} */
+
+/* this CS forms the triangles */
+/* .test:after,
+.test:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 64%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+p {
+    margin-bottom: 2px;
+}
+
+.subHeadings {
+    font-weight: bold;
+    font-size: 24px;
+    margin: auto;
+    padding: 10px 0px 20px;
+}
+
+.jumbotronHeaderImg {
+    /* background: url("../images/star-wars-title9.JPG"); */
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 25px;
+}
+
