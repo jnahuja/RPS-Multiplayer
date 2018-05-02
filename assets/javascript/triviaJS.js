@@ -19,6 +19,7 @@ $(document).ready(function () {
 
     var rpsArray = ["Rock", "Paper", "Scissors"];
     var gameBoxArray = ["#gameBoxLeft", "#gameBoxRight"];
+    var winsLossesDiv = ["#winsLossesDivLeft", "#winsLossesDivRight"];
 
     var player1 = {
         name: "",
@@ -36,6 +37,7 @@ $(document).ready(function () {
         turn: 1,
         player1Guess: "",
         player2Guess: "",
+        winner: ""
     }
 
     function player1Reset() {
@@ -54,6 +56,8 @@ $(document).ready(function () {
         gamePlay.turn = 1;
         gamePlay.player1Guess = "";
         gamePlay.player2Guess = "";
+        gamePlay.winner = "";
+        database.ref().child("/gamePlay").set(gamePlay);
     }
 
     function buildRPS() {
@@ -92,13 +96,15 @@ $(document).ready(function () {
             p.addClass("row justify-content-center playerTitle");
             p.text("Player " + (j + 1) + " Waiting");
             $(gameBoxArray[j]).append(p);
+            updateWinsLosses();
         }
     }
 
     // playerWaiting();
 
     function updateWinsLosses() {
-        for (j = 0; j < gameBoxArray.length; j++) {
+        for (j = 0; j < winsLossesDiv.length; j++) {
+            $(winsLossesDiv[j]).empty();
             var p = $("<p>");
             p.addClass("row justify-content-center playerWinsLosses");
             if (j == 0) {
@@ -108,14 +114,32 @@ $(document).ready(function () {
                 p.text("Wins = " + player2.wins + "   ------   Losses = " + player2.losses);
             }
 
-            $(gameBoxArray[j]).append(p);
+            $(winsLossesDiv[j]).append(p);
         }
     }
 
     function gameBoxCenterInstructions() {
         $("#gameBoxCenter").empty();
         var p = $("<p>");
-        p.text("Player "+gamePlay.turn+"'s Turn");
+        if (gamePlay.turn!==3) {
+            p.text("Player "+gamePlay.turn+"'s Turn");
+        }
+        else if (gamePlay.winner == "Draw") {
+            p.text("It's a Draw!");
+            setTimeout(gamePlayReset,3000);
+            // setTimeout(function() {
+            //     database.ref().child("/gamePlay").set(gamePlay);
+            //   }, 4000);
+            
+        }
+        else {
+            p.text("The Winner is " + gamePlay.winner+ "!");
+            setTimeout(gamePlayReset,3000);
+            // setTimeout(function() {
+            //     database.ref().child("/gamePlay").set(gamePlay);
+            // }, 4000);
+        }
+        
         // if (gamePlay.turn==1) {
         //     p.text("Player 1's Turn");
         // }
@@ -157,6 +181,7 @@ $(document).ready(function () {
                 gameBoxCenterInstructions();
             }
             else {
+                gameBoxCenterInstructions();
                 updateWinsLosses();
             }
             
@@ -215,7 +240,7 @@ $(document).ready(function () {
             player2.name = playerName;
             database.ref().child("/player2").set(player2);
             gamePlayReset();
-            database.ref().child("/gamePlay").set(gamePlay);
+            // database.ref().child("/gamePlay").set(gamePlay);
             // database.ref().set({
             //     player2: player2,
             // });
@@ -268,18 +293,23 @@ $(document).ready(function () {
         else if (currentGameBox=="#gameBoxRight" && gamePlay.turn==2) {
             gamePlay.player2Guess = currentRPS;
             gamePlay.turn = 3;
-            database.ref().child("/gamePlay").set(gamePlay);
 
             // If Player 1 wins
             if ((gamePlay.player1Guess=="Rock" && gamePlay.player2Guess=="Scissors") || (gamePlay.player1Guess=="Scissors" && gamePlay.player2Guess=="Paper") || (gamePlay.player1Guess=="Paper" && gamePlay.player2Guess=="Rock")) {
                 player1.wins = player1.wins + 1;
                 player2.losses = player2.losses + 1;
+                gamePlay.winner = player1.name;
             }
-            else {
+            else if ((gamePlay.player1Guess=="Rock" && gamePlay.player2Guess=="Paper") || (gamePlay.player1Guess=="Scissors" && gamePlay.player2Guess=="Rock") || (gamePlay.player1Guess=="Paper" && gamePlay.player2Guess=="Scissors")) {
                 player1.losses = player1.losses + 1;
                 player2.wins = player2.wins + 1;
+                gamePlay.winner = player1.name;
+            }
+            else {
+                gamePlay.winner = "Draw";
             }
 
+            database.ref().child("/gamePlay").set(gamePlay);
             database.ref().child("/player1").set(player1);
             database.ref().child("/player2").set(player2);
         }
