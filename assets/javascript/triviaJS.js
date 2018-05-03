@@ -88,6 +88,29 @@ $(document).ready(function () {
 
     buildRPS();
 
+    function updateGuess() {
+        if (gamePlay.player1Guess!=="") {
+            console.log("Entered statement!!!");
+            var p = $("<p>");
+            p.addClass("row justify-content-center playerGuess");
+            p.text(gamePlay.player1Guess);
+            $(gameBoxArray[0]).empty();
+            $(gameBoxArray[0]).append(p);
+        }
+        if (gamePlay.player2Guess!=="") {
+            var p = $("<p>");
+            p.addClass("row justify-content-center playerGuess");
+            p.text(gamePlay.player2Guess);
+            $(gameBoxArray[1]).empty();
+            $(gameBoxArray[1]).append(p);
+        }
+        if (gamePlay.player1Guess=="" && gamePlay.player2Guess=="") {
+            buildRPS();
+        }
+        
+
+    }
+
     function updatePlayer1Name() {
         $("#player1Name").empty();
         var p = $("<p>");
@@ -260,6 +283,8 @@ $(document).ready(function () {
 
             // playerWaiting();
 
+            updateGuess();
+
             updatePlayer1Name();
             updatePlayer2Name();
             gameBoxCenterInstructions();
@@ -403,7 +428,7 @@ $(document).ready(function () {
             else if ((gamePlay.player1Guess=="Rock" && gamePlay.player2Guess=="Paper") || (gamePlay.player1Guess=="Scissors" && gamePlay.player2Guess=="Rock") || (gamePlay.player1Guess=="Paper" && gamePlay.player2Guess=="Scissors")) {
                 player1.losses = player1.losses + 1;
                 player2.wins = player2.wins + 1;
-                gamePlay.winner = player1.name;
+                gamePlay.winner = player2.name;
             }
             else {
                 gamePlay.winner = "Draw";
